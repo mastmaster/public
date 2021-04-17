@@ -1,0 +1,33 @@
+function iben_change_weight_by_dimensions($weight, $order_id){
+			
+	$order = wc_get_order($order_id);
+
+	if ( !is_a( $order, 'WC_Order' )  ){
+		return;
+	}
+	
+    $total_weight_dim = 0;
+
+	foreach( $order->get_items() as $item_id => $product_item ){
+		$quantity = $product_item->get_quantity(); // get quantity
+		$product = $product_item->get_product(); // get the WC_Product object
+		if( $product ) {
+            $total_weight_dim += $quantity * (($product->get_height() * $product->get_width() * $product->get_length()) / 5000);
+	    }
+	}
+
+    $final_weight = 0;
+    if ($total_weight_dim > $weight && $weight != 0){
+        
+        $final_weight = $total_weight_dim;
+    }else{
+        $final_weight = $weight;
+    }
+    return $final_weight;
+    
+    error_log($final_weight);
+}
+
+
+add_filter('iben_elta_filter_weight_order_metabox', 'iben_change_weight_by_dimensions', 10, 2);
+
