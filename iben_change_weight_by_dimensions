@@ -24,8 +24,6 @@ function iben_change_weight_by_dimensions($weight, $order_id){
         $final_weight = $weight;
     }
     return $final_weight;
-    
-    error_log($final_weight);
 }
 
 
