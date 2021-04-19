@@ -1,4 +1,4 @@
-function iben_change_weight_by_dimensions($weight, $order_id){
+function iben_change_weight($weight, $order_id){
 			
 	$order = wc_get_order($order_id);
 
@@ -7,25 +7,35 @@ function iben_change_weight_by_dimensions($weight, $order_id){
 	}
 	
     $total_weight_dim = 0;
+	$final_weight = 0;
 
 	foreach( $order->get_items() as $item_id => $product_item ){
 		$quantity = $product_item->get_quantity(); // get quantity
-		$product = $product_item->get_product(); // get the WC_Product object
-		if( $product ) {
-            $total_weight_dim += $quantity * (($product->get_height() * $product->get_width() * $product->get_length()) / 5000);
-	    }
-	}
 
-    $final_weight = 0;
-    if ($total_weight_dim > $weight && $weight != 0){
+		$product = $product_item->get_product(); // get the WC_Product object
+
+		if( $product ) {
+
+			$height = ($product->get_height() >= 0 ? $product->get_height() : 0);
+			$width = ($product->get_width() >= 0 ? $product->get_width() : 0);
+			$length = ($product->get_length() >= 0 ? $product->get_length() : 0);
+
+            $total_weight_dim += $quantity * (($height * $width * $length) / 5000);
+	    }
+
+	}
+    
+	//&& $weight != 0
+    if ($total_weight_dim > $weight){
         
         $final_weight = $total_weight_dim;
     }else{
         $final_weight = $weight;
     }
+
     return $final_weight;
+    
 }
 
 
-add_filter('iben_elta_filter_weight_order_metabox', 'iben_change_weight_by_dimensions', 10, 2);
-
+add_filter('iben_elta_filter_weight_order_metabox', 'iben_change_weight', 10, 2);
