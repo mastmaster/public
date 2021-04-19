@@ -1,4 +1,4 @@
-function iben_change_weight($weight, $order_id){
+function iben_change_elta_weight_dim($weight, $order_id){
 			
 	$order = wc_get_order($order_id);
 
@@ -38,4 +38,4 @@ function iben_change_weight($weight, $order_id){
 }
 
 
-add_filter('iben_elta_filter_weight_order_metabox', 'iben_change_weight', 10, 2);
+add_filter('iben_elta_filter_weight_order_metabox', 'iben_change_elta_weight_dim', 10, 2);
