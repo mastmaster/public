@@ -1,0 +1,13 @@
+function iben_elta_change_phone_format($phone){
+	$country_code = '30';
+	if ($phone && strlen($phone) > 10){
+
+		$result = preg_replace("/^\+?{$country_code}/", '',$phone);
+		return trim($result);
+	}else{
+		return $phone;
+	}
+	
+}
+
+add_filter('iben_elta_phone_format', 'iben_elta_change_phone_format', 10);
