@@ -1,3 +1,5 @@
+// require >= 1.7.2
+
 function iben_elta_change_phone_format($phone){
 	$country_code = '30';
 	if ($phone && strlen($phone) > 10){
