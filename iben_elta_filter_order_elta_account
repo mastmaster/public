@@ -1,0 +1,13 @@
+//require version > 1.7.6
+function iben_change_default_account($default_account, $weight, $order_id){
+    
+    if ( intval($weight) < 7){
+        
+        $account = 1;
+    }else{
+        $account = 2;
+    }
+    return $account;    
+}
+
+add_filter('iben_elta_filter_order_elta_account', 'iben_change_default_account', 10, 3);
