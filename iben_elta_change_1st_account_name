@@ -1,0 +1,6 @@
+//require version > 1.7.6
+function iben_elta_change_1st_account_name(){
+	return 'Αλλο ονομα 1';
+}
+
+add_filter('iben_elta_filter_order_elta_1st_account_name', 'iben_elta_change_1st_account_name');
