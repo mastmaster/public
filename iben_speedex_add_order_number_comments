@@ -1,0 +1,13 @@
+function iben_speedex_add_order_number_comments($comment, $order_id){ 
+
+    $order = wc_get_order($order_id); 
+    if (!is_object($order)){
+        return;
+    } 
+    //GET ORDER COMMENTS
+    $comments = $order->get_customer_note(); 
+    $order_number = $order->get_order_number(); 
+    return 'Παραγγελία ID:'.$order_number.' '.$comments;
+}
+
+add_filter('iben_speedex_filter_comments_order_metabox', 'iben_speedex_add_order_number_comments', 10, 2);
