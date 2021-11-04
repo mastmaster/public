@@ -1,0 +1,61 @@
+	add_action('admin_init', 'iben_acs_custom_acccounts');
+
+	function iben_acs_custom_acccounts(){
+		// v1.6.0 and later
+
+		if ( ! class_exists( 'Iben_Woo_Acs_Admin_Woo' ) ) return;
+		if ( ! is_admin() ) return;
+		if ( !current_user_can( 'edit_shop_orders' ) ) return;
+
+		add_filter( 'iben_acs_filter_vouchers_display_account_column', '__return_true' ); 
+		
+		$current_id = get_current_user_id();				
+		// ADMIN ID		
+		if ($current_id == 1){
+			
+			add_filter( 'iben_acs_main_company_id', function($default_value ) {
+				return 'xxxxx';
+			}, 10);
+
+			add_filter( 'iben_acs_main_company_password', function($default_value ) {
+				return 'xxxxxx';
+			}, 10);
+			add_filter( 'iben_acs_main_user_id', function($default_value ) {
+				return 'xxxxx';
+			}, 10
+			);
+			add_filter( 'iben_acs_main_user_password', function($default_value ) {
+				return '14411';
+			}, 10);
+			add_filter( 'iben_acs_main_apikey', function($default_value ) {
+				return 'e248xxxx3fca40af8ae8bb2cb6c4xxx';
+			}, 10);												
+			add_filter( 'iben_acs_main_billing_code', function($default_value ) {
+				return 'xxxxxx';
+			}, 10);												
+
+		// ADMIN ID
+		}elseif ($current_id == 2){
+			add_filter( 'iben_acs_main_company_id', function($default_value ) {
+				return 'demo';
+			}, 10);	
+
+			add_filter( 'iben_acs_main_company_password', function($default_value ) {
+				return 'demo';
+			}, 10);
+			add_filter( 'iben_acs_main_user_id', function($default_value ) {
+				return 'demo';
+			}, 10
+			);
+			add_filter( 'iben_acs_main_user_password', function($default_value ) {
+				return 'demo';
+			}, 10);
+			add_filter( 'iben_acs_main_apikey', function($default_value ) {
+				return 'ff3981a2ac67410e877c1d73e7d83006';
+			}, 10);												
+			add_filter( 'iben_acs_main_billing_code', function($default_value ) {
+				return '2ΑΘ999999';
+			}, 10);	
+		}
+
+	}
