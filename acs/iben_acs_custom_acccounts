@@ -1,14 +1,17 @@
 	add_action('admin_init', 'iben_acs_custom_acccounts');
 
 	function iben_acs_custom_acccounts(){
-		// v1.6.0 and later
+		// REQUIRE v1.6.0 and later
 
 		if ( ! class_exists( 'Iben_Woo_Acs_Admin_Woo' ) ) return;
 		if ( ! is_admin() ) return;
 		if ( !current_user_can( 'edit_shop_orders' ) ) return;
 
+		//display admin bar which account is assigned
+		add_filter( 'iben_acs_filter_display_multiaccount_message', '__return_true' );			
+		//display in account column in vouchers list
 		add_filter( 'iben_acs_filter_vouchers_display_account_column', '__return_true' ); 
-		
+
 		$current_id = get_current_user_id();				
 		// ADMIN ID		
 		if ($current_id == 1){
