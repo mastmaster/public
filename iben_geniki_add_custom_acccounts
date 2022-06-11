@@ -13,21 +13,19 @@
 		//display in account column in vouchers list
 		add_filter( 'iben_geniki_filter_vouchers_display_account_column', '__return_true' ); 
 		//Force request Geniki authentication key each time
-		add_filter( 'iben_geniki_main_force_auth', '__return_true' ); 
-		
-			
+		add_filter( 'iben_geniki_main_force_auth', '__return_true' ); 			
 		add_filter( 'iben_geniki_main_auth_slug_test', function($default_value ) {
 			return 'iben_geniki_auth_test_'.get_current_user_id();
-		}, 10);
-		
+		}, 10);		
 		add_filter( 'iben_geniki_main_auth_slug_live', function($default_value ) {
 			return 'iben_geniki_auth_live_'.get_current_user_id();
 		}, 10);
+		
 
 		$current_id = get_current_user_id();
+		
 		// ADMIN ID	
-		if ($current_id == 2){
-			
+		if ($current_id == 2){			
 		
 			// Γενική Username 			
 			add_filter( 'iben_geniki_main_username', function($default_value ) {
