@@ -1,5 +1,5 @@
 
-add_filter('iben_speedex_filter_Comments_2853_1_order_metabox', 'iben_speedex_display_products_in_comments', 10, 2 );
+add_filter('iben_speedex_filter_Paratiriseis_2853_1_order_metabox', 'iben_speedex_display_products_in_comments', 10, 2 );
 
 function iben_speedex_display_products_in_comments($comments, $order_id){
 	
