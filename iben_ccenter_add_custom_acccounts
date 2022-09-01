@@ -16,7 +16,7 @@
 		$current_id = get_current_user_id();
 		
 		// ADMIN ID	
-		if ($current_id == 1){			
+		if ($current_id == 27){			
 	
 			//billing_code
 			add_filter( 'iben_ccenter_filter_main_settings_billtocode', function($default_value ) {
