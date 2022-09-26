@@ -1,0 +1,30 @@
+// requires iBen ACS v2.5.0
+add_action('iben_acs_check_delivery_hook_after_delivered', 'iben_custom_trigger_function_delivered', 10, 2);
+
+function iben_custom_trigger_function_delivered($order_id, $id_record){
+
+	if ( !function_exists( 'iben_acs_get_Vouchers_from_id' ) ) return;
+
+	$data = iben_acs_get_Vouchers_from_id($id_record);
+
+	if (empty($data) && !is_object($data) ) return;
+
+	$voucher = $data->acs_main_voucher;
+	$data = maybe_unserialize($data->acs_voucher_info);
+	
+	//if COD
+	if (!isset($data['Cod_Ammount'])) return;
+
+	$cash = str_replace(",",".", $data['Cod_Ammount']);
+	$cash = floatval(preg_replace('/\.(?=.*\.)/', '', $cash));
+
+	if ($cash > 0){
+		// SEND EMAIL HERE
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+		$subject = esc_html__( 'Just delivered a COD shipment', 'iben-woo-ups' );
+		$body = '<p> ACS voucher: '.$voucher.' ('.$cash.')</p>';
+
+		wp_mail( 'info@ibenetos.com', $subject, $body, $headers );
+	}
+
+}
