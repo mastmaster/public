@@ -1,3 +1,4 @@
+// Send email after a shipment is delivered only if has COD
 // requires iBen ACS v2.5.0
 add_action('iben_acs_check_delivery_hook_after_delivered', 'iben_custom_trigger_function_delivered', 10, 2);
 
