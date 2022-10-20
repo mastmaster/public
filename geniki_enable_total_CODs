@@ -1,0 +1,3 @@
+add_filter( 'iben_geniki_filter_listvouchers_displaycod_all', '__return_true' );
+add_filter( 'iben_geniki_filter_listvouchers_displaycod_delivered', '__return_true' );
+add_filter( 'iben_geniki_filter_listvouchers_displaycod_undelivered', '__return_true' );
