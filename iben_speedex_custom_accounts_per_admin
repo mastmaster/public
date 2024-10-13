@@ -1,0 +1,95 @@
+add_action('init', 'iben_speedex_add_custom_hooks');
+function iben_speedex_add_custom_hooks(){
+	// 	Force request Speedex authentication key each time
+	add_filter( 'iben_speedex_main_force_auth', '__return_true' );
+}
+add_action('admin_init', 'iben_speedex_custom_accounts_per_admin');
+function iben_speedex_custom_accounts_per_admin(){
+	// REQUIRE v5.1.0 and later
+		
+	
+	if ( ! class_exists( 'Iben_Woo_Geniki_Admin_Woo' ) ) return;
+	
+	if ( ! is_admin() ) return;
+	if ( !current_user_can( 'edit_shop_orders' ) ) return;
+
+
+	//display admin bar which account is assigned
+	add_filter( 'iben_speedex_filter_display_multiaccount_message', '__return_true' );			
+	//display account column in vouchers list
+	add_filter( 'iben_speedex_filter_vouchers_display_account_column', '__return_true' ); 
+	// 	Display account name created the shipment
+	add_filter( 'iben_speedex_filter_orders_display_account_info', '__return_true' ); 
+	
+	add_filter( 'iben_speedex_main_auth_slug_test', function($default_value ) {
+		return 'iben_speedex_auth_test_'.get_current_user_id();
+	}, 10);
+	
+	add_filter( 'iben_speedex_main_auth_slug_live', function($default_value ) {
+		return 'iben_speedex_auth_live_'.get_current_user_id();
+	}, 10);
+
+	$current_id = get_current_user_id();
+	
+	// ADMIN ID	
+	if ($current_id == 1){
+	
+ 		//Live URL
+		add_filter( 'iben_speedex_main_speedex_url', function($default_value ) {
+			return 'https://spdxws.gr/accesspoint.asmx?WSDL';
+		}, 10);
+		
+		// Speedex Username 			
+		add_filter( 'iben_speedex_main_username', function($default_value ) {
+			return 'XXXXXX';
+		}, 10);
+		
+		// Speedex password
+		add_filter( 'iben_speedex_main_password', function($default_value ) {
+			return 'XXXX-XXXXX-XXXXXX-XXXXXX';
+		}, 10);
+
+		// Speedex Customer code
+		add_filter( 'iben_speedex_main_customer_code', function($default_value ) {
+			return 'ΠΕXXXXX';
+		}, 10);
+		
+		// Speedex agreement 
+		add_filter( 'iben_speedex_main_agreement', function($default_value ) {
+			return 'XXXXXX';
+		}, 10);	
+
+
+	// ADMIN ID
+	}else if ($current_id == 2){
+			
+			
+		//TEST URL
+		add_filter( 'iben_speedex_main_speedex_url', function($default_value ) {
+			return 'https://devspdxws.gr/accesspoint.asmx?WSDL';
+		}, 10);
+		
+		// Speedex Username 			
+		add_filter( 'iben_speedex_main_username', function($default_value ) {
+			return 'demoapi';
+		}, 10);
+		
+		// Speedex password
+		add_filter( 'iben_speedex_main_password', function($default_value ) {
+			return 'GOOD-GO-HOME-GUYS';
+		}, 10);
+
+		// Speedex Customer code
+		add_filter( 'iben_speedex_main_customer_code', function($default_value ) {
+			return 'DEMO';
+		}, 10);
+		
+		// Speedex agreement 
+		add_filter( 'iben_speedex_main_agreement', function($default_value ) {
+			return '001';
+		}, 10);	
+		
+	}
+	
+
+}
