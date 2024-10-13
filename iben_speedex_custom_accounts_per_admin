@@ -14,11 +14,11 @@ function iben_speedex_custom_accounts_per_admin(){
 	if ( !current_user_can( 'edit_shop_orders' ) ) return;
 
 
-	//display admin bar which account is assigned
+	//Display the assigned account in the admin bar.
 	add_filter( 'iben_speedex_filter_display_multiaccount_message', '__return_true' );			
-	//display account column in vouchers list
+	//Display account column in vouchers list
 	add_filter( 'iben_speedex_filter_vouchers_display_account_column', '__return_true' ); 
-	// 	Display account name created the shipment
+	//Display the account name that created the shipment
 	add_filter( 'iben_speedex_filter_orders_display_account_info', '__return_true' ); 
 	
 	add_filter( 'iben_speedex_main_auth_slug_test', function($default_value ) {
